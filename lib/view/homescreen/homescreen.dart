@@ -13,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController addcobtroller = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  String? dropDownValue;
+  List<String> category = ["Home", "Work"];
   @override
   void initState() {
     TodoController.initKey();
@@ -42,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) => Listview(
+                          category: dropDownValue,
                           todoitemKey: TodoController.todolistKey[index],
                           onDelete: () async {
                             await TodoController.deleteData(
@@ -80,31 +83,68 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPressed: () {
                             addcobtroller.clear();
                             showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text("Add"),
-                                content: Form(
-                                  key: formKey,
-                                  child: TextFormField(
-                                    controller: addcobtroller,
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () async {
-                                        if (formKey.currentState!.validate()) {
-                                          await TodoController.addData(
-                                              TodoModel(
-                                                  title: addcobtroller.text,
-                                                  completed: false));
-                                          setState(() {});
-                                          Navigator.pop(context);
-                                        }
-                                      },
-                                      child: Text("Ok"))
-                                ],
-                              ),
-                            );
+                                context: context,
+                                builder: (context) => StatefulBuilder(
+                                      builder: (context, alertSetState) =>
+                                          AlertDialog(
+                                        title: Row(
+                                          children: [
+                                            Text("Add"),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            DropdownButton(
+                                              hint: Text("Select"),
+                                              value: dropDownValue,
+                                              items: [
+                                                DropdownMenuItem(
+                                                  child: Text("Home"),
+                                                  value: "Home",
+                                                ),
+                                                DropdownMenuItem(
+                                                  child: Text("Work"),
+                                                  value: "Work",
+                                                ),
+                                              ]
+                                              //  category
+                                              //     .map((e) => DropdownMenuItem(
+                                              //           child: Text(e),
+                                              //           value: e,
+                                              //         ))
+                                              // .toList()
+                                              ,
+                                              onChanged: (value) {
+                                                alertSetState(() {
+                                                  dropDownValue = value;
+                                                });
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                        content: Form(
+                                          key: formKey,
+                                          child: TextFormField(
+                                            controller: addcobtroller,
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () async {
+                                                if (formKey.currentState!
+                                                    .validate()) {
+                                                  await TodoController.addData(
+                                                      TodoModel(
+                                                          title: addcobtroller
+                                                              .text,
+                                                          completed: false));
+                                                  setState(() {});
+                                                  Navigator.pop(context);
+                                                }
+                                              },
+                                              child: Text("Ok"))
+                                        ],
+                                      ),
+                                    ));
                           },
                           icon: Icon(Icons.add)),
                     ),

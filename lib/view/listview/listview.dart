@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/controller/todo_controller.dart';
-import 'package:todo_app/model/todo_model.dart';
 
 class Listview extends StatefulWidget {
-  Listview({super.key, required this.todoitemKey, this.onDelete});
+  Listview(
+      {super.key,
+      required this.todoitemKey,
+      this.onDelete,
+      required this.category});
 
   final todoitemKey;
   final void Function()? onDelete;
+  final String? category;
   @override
   State<Listview> createState() => _ListviewState();
 }
@@ -40,6 +44,10 @@ class _ListviewState extends State<Listview> {
                       decoration: TextDecoration.lineThrough,
                       fontSize: 20),
             ),
+          ),
+          Text(widget.category ?? ""),
+          SizedBox(
+            width: 10,
           ),
           isChecked == false ? Text("Incompleted") : Text("Completed"),
           Spacer(),
