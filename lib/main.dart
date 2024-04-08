@@ -8,7 +8,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TodoModelAdapter());
 
-  var box = await Hive.openBox<TodoModel>('todoBox');
+  await Hive.openBox<TodoModel>('todoBox');
 
   runApp(TodoApp());
 }

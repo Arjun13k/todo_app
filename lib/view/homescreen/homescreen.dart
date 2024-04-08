@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Listview(
                         isChecked: todoModel.isChecked,
                         category: todoModel.category,
-                        todoitemKey: TodoController.todolistKey[index],
+                        title: todoModel.title,
                         onpress: (value) async {
                           todoModel.isChecked = value!;
                           await TodoController.checkBox(

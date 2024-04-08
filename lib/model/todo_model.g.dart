@@ -19,18 +19,20 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
     return TodoModel(
       title: fields[0] as String,
       isChecked: fields[1] as bool,
-      category: '',
+      category: fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, TodoModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.isChecked);
+      ..write(obj.isChecked)
+      ..writeByte(2)
+      ..write(obj.category);
   }
 
   @override
