@@ -14,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController addcobtroller = TextEditingController();
   var formKey = GlobalKey<FormState>();
   String? dropDownValue;
-  List<String> category = ["Home", "Work"];
+
   @override
   void initState() {
     TodoController.initKey();
@@ -43,15 +43,26 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: ListView.separated(
                     shrinkWrap: true,
-                    itemBuilder: (context, index) => Listview(
-                          category: dropDownValue,
-                          todoitemKey: TodoController.todolistKey[index],
-                          onDelete: () async {
-                            await TodoController.deleteData(
-                                TodoController.todolistKey[index]);
-                            setState(() {});
-                          },
-                        ),
+                    itemBuilder: (context, index) {
+                      TodoModel todoModel = TodoController.getdata(
+                          TodoController.todolistKey[index])!;
+                      return Listview(
+                        isChecked: todoModel.isChecked,
+                        category: todoModel.category,
+                        todoitemKey: TodoController.todolistKey[index],
+                        onpress: (value) async {
+                          todoModel.isChecked = value!;
+                          await TodoController.checkBox(
+                              TodoController.todolistKey[index], todoModel);
+                          setState(() {});
+                        },
+                        onDelete: () async {
+                          await TodoController.deleteData(
+                              TodoController.todolistKey[index]);
+                          setState(() {});
+                        },
+                      );
+                    },
                     separatorBuilder: (context, index) => SizedBox(
                           height: 20,
                         ),
@@ -136,7 +147,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       TodoModel(
                                                           title: addcobtroller
                                                               .text,
-                                                          completed: false));
+                                                          isChecked: false,
+                                                          category:
+                                                              dropDownValue!));
                                                   setState(() {});
                                                   Navigator.pop(context);
                                                 }

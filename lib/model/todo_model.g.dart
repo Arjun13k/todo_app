@@ -18,7 +18,8 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
     };
     return TodoModel(
       title: fields[0] as String,
-      completed: fields[1] as bool,
+      isChecked: fields[1] as bool,
+      category: '',
     );
   }
 
@@ -29,7 +30,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.completed);
+      ..write(obj.isChecked);
   }
 
   @override

@@ -24,4 +24,9 @@ class TodoController {
   static TodoModel? getdata(var key) {
     return myBox.get(key);
   }
+
+  static checkBox(var key, TodoModel todoModel) async {
+    await myBox.put(key, todoModel);
+    initKey();
+  }
 }

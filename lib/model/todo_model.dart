@@ -6,10 +6,10 @@ class TodoModel {
   @HiveField(0)
   String title;
   @HiveField(1)
-  bool completed;
+  bool isChecked;
+  @HiveField(2)
+  String category;
 
-  TodoModel({
-    required this.title,
-    required this.completed,
-  });
+  TodoModel(
+      {required this.title, required this.isChecked, required this.category});
 }
