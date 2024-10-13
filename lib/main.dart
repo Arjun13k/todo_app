@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_app/controller/todo_controller.dart';
 import 'package:todo_app/model/todo_model.dart';
 import 'package:todo_app/view/homescreen/homescreen.dart';
 

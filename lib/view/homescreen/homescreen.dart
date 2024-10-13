@@ -25,11 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: Icon(Icons.arrow_back),
+          // leading: Icon(Icons.arrow_back),
           title: Text("ToDo",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40)),
           centerTitle: true,
-          actions: [Icon(Icons.search)],
+          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           AlertDialog(
                                         title: Row(
                                           children: [
-                                            Text("Add"),
+                                            Text("Category"),
                                             SizedBox(
                                               width: 10,
                                             ),
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   Navigator.pop(context);
                                                 }
                                               },
-                                              child: Text("Ok"))
+                                              child: Text("Add"))
                                         ],
                                       ),
                                     ));
